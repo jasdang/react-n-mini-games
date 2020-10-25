@@ -4,7 +4,7 @@ import {StyleSheet, Text, View} from 'react-native';
 import {NavigationContainer} from '@react-navigation/native';
 import {createDrawerNavigator} from '@react-navigation/drawer';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
-import TestComponent from './components/TestComponent';
+import GuessTheNumber from './components/GuessTheNumber';
 
 const Drawer = createDrawerNavigator();
 const Tab = createBottomTabNavigator();
@@ -13,7 +13,7 @@ export default function App() {
   return (
     <NavigationContainer>
       <Drawer.Navigator>
-        <Drawer.Screen name='testComponent' component={TestComponent} />
+        <Drawer.Screen name='testComponent' component={GuessTheNumber} />
       </Drawer.Navigator>
     </NavigationContainer>
   );
