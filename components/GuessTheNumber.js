@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState} from 'react';
 import {
   StyleSheet,
   View,
@@ -8,14 +8,27 @@ import {
 } from 'react-native';
 
 export default function GuessTheNumber() {
+  const [result, setResult] = useState(Math.floor(Math.random() * 100));
+  const [min, setMin] = useState(0);
+  const [max, setMax] = useState(100);
+  const [guess, setGuess] = useState();
+  const handlePress = () => {};
   return (
     <View style={styles.container}>
       <Text style={styles.gameHeader}>Game Header</Text>
       <View style={styles.square}>
-        <Text style={styles.squareContent}>?</Text>
+        <Text style={styles.squareContent}>{result}</Text>
       </View>
-      <TextInput placeholder='Type here...' style={styles.textInput} />
-      <TouchableOpacity style={styles.button}>
+      <Text>Current Min: {min}</Text>
+      <Text>Current Max: {max}</Text>
+      <Text>Your guess: {guess ? guess : '-'}</Text>
+      <TextInput
+        keyboardType='numeric'
+        placeholder='Type here...'
+        style={styles.textInput}
+        onChangeText={(guess) => setGuess(guess)}
+      />
+      <TouchableOpacity style={styles.button} onPress={handlePress}>
         <Text>Submit</Text>
       </TouchableOpacity>
     </View>
