@@ -12,14 +12,26 @@ export default function GuessTheNumber() {
   const [min, setMin] = useState(0);
   const [max, setMax] = useState(100);
   const [guess, setGuess] = useState(0);
+  const [isEnded, setIsEnded] = useState(false);
   const handlePress = () => {
-    if (guess > max || guess < min) {
-      alert('Your guess is out of the range! Enter another number to submit.');
+    if (isEnded === true) {
+      setResult(Math.floor(Math.random() * 100));
+      setMin(0);
+      setMax(100);
+      setGuess();
+      setIsEnded(false);
       return;
     }
-    console.log(typeof guess);
+
+    if (guess > max || guess < min) {
+      alert('Your guess is out of the range! Enter another number to submit.');
+      setGuess();
+
+      return;
+    }
 
     if (guess === result) {
+      setIsEnded(true);
       alert('You win!');
     } else {
       guess < result ? setMin(guess) : setMax(guess);
@@ -39,10 +51,11 @@ export default function GuessTheNumber() {
         keyboardType='numeric'
         placeholder='Type here...'
         style={styles.textInput}
+        value={guess ? guess.toString() : ''}
         onChangeText={(guess) => setGuess(parseInt(guess))}
       />
       <TouchableOpacity style={styles.button} onPress={handlePress}>
-        <Text>Submit</Text>
+        <Text>{isEnded ? 'Play Again' : 'Submit'}</Text>
       </TouchableOpacity>
     </View>
   );
