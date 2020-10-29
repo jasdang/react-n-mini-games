@@ -14,10 +14,10 @@ export default function GuessTheNumber() {
   const [guess, setGuess] = useState(0);
   const handlePress = () => {
     if (guess > max || guess < min) {
-      console.log(typeof guess);
       alert('Your guess is out of the range! Enter another number to submit.');
       return;
     }
+    console.log(typeof guess);
 
     if (guess === result) {
       alert('You win!');
@@ -39,8 +39,7 @@ export default function GuessTheNumber() {
         keyboardType='numeric'
         placeholder='Type here...'
         style={styles.textInput}
-        value={guess}
-        onChangeText={(guess) => setGuess(guess)}
+        onChangeText={(guess) => setGuess(parseInt(guess))}
       />
       <TouchableOpacity style={styles.button} onPress={handlePress}>
         <Text>Submit</Text>
