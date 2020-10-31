@@ -14,32 +14,6 @@ export default function GuessTheNumber() {
   const [max, setMax] = useState(100);
   const [guess, setGuess] = useState(0);
   const [isEnded, setIsEnded] = useState(false);
-  const handlePress = () => {
-    Keyboard.dismiss();
-    if (isEnded === true) {
-      setResult(Math.floor(Math.random() * 100));
-      setMin(0);
-      setMax(100);
-      setGuess();
-      setIsEnded(false);
-      return;
-    }
-
-    if (guess > max || guess < min) {
-      alert('Your guess is out of the range! Enter another number to submit.');
-      setGuess();
-
-      return;
-    }
-
-    if (guess === result) {
-      setIsEnded(true);
-      alert('You win!');
-    } else {
-      guess < result ? setMin(guess) : setMax(guess);
-    }
-    setGuess();
-  };
 
   return (
     <View style={styles.container}>
@@ -47,17 +21,91 @@ export default function GuessTheNumber() {
       <View style={styles.square}>
         <Text style={styles.squareContent}>{result}</Text>
       </View>
-      <Text>Current Min: {min}</Text>
-      <Text>Current Max: {max}</Text>
+      {isEnded ? (
+        <PlayAgain
+          setGuess={setGuess}
+          guess={guess}
+          setMin={setMin}
+          min={min}
+          setMax={setMax}
+          max={max}
+          setResult={setResult}
+          result={result}
+          setIsEnded={setIsEnded}
+          isEnded={isEnded}
+        />
+      ) : (
+        <Guessing
+          setGuess={setGuess}
+          guess={guess}
+          setMin={setMin}
+          min={min}
+          setMax={setMax}
+          max={max}
+          setResult={setResult}
+          result={result}
+          setIsEnded={setIsEnded}
+          isEnded={isEnded}
+        />
+      )}
+    </View>
+  );
+}
+
+function Guessing(props) {
+  const handlePress = () => {
+    Keyboard.dismiss();
+
+    if (props.guess > props.max || props.guess < props.min) {
+      alert('Your guess is out of the range! Enter another number to submit.');
+      props.setGuess();
+      return;
+    }
+
+    if (props.guess === props.result) {
+      props.setIsEnded(true);
+      alert('You win!');
+    } else {
+      props.guess < props.result
+        ? props.setMin(props.guess)
+        : props.setMax(props.guess);
+    }
+    props.setGuess();
+  };
+
+  return (
+    <View style={styles.subContainer}>
+      <Text>Current Min: {props.min}</Text>
+      <Text>Current Max: {props.max}</Text>
       <TextInput
         keyboardType='numeric'
         placeholder='Type here...'
         style={styles.textInput}
-        value={guess ? guess.toString() : ''}
-        onChangeText={(guess) => setGuess(parseInt(guess))}
+        value={props.guess ? props.guess.toString() : ''}
+        onChangeText={(guess) => props.setGuess(parseInt(guess))}
       />
       <TouchableOpacity style={styles.button} onPress={handlePress}>
-        <Text>{isEnded ? 'Play Again' : 'Submit'}</Text>
+        <Text>Submit</Text>
+      </TouchableOpacity>
+    </View>
+  );
+}
+
+function PlayAgain(props) {
+  const handlePress = () => {
+    props.setResult(Math.floor(Math.random() * 100));
+    props.setMin(0);
+    props.setMax(100);
+    props.setGuess();
+    props.setIsEnded(false);
+    return;
+  };
+
+  return (
+    <View style={styles.subContainer}>
+      <Text>You Win!</Text>
+      <TouchableOpacity style={styles.button} onPress={handlePress}>
+        <Text>Play Again</Text>
       </TouchableOpacity>
     </View>
   );
@@ -69,6 +117,11 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'flex-start',
     margin: 50,
+    backgroundColor: 'steelblue',
+  },
+  subContainer: {
+    alignItems: 'center',
+    justifyContent: 'flex-start',
     backgroundColor: 'steelblue',
   },
   gameHeader: {
