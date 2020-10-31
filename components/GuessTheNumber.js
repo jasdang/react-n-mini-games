@@ -5,6 +5,7 @@ import {
   Text,
   TextInput,
   TouchableOpacity,
+  Keyboard,
 } from 'react-native';
 
 export default function GuessTheNumber() {
@@ -14,6 +15,7 @@ export default function GuessTheNumber() {
   const [guess, setGuess] = useState(0);
   const [isEnded, setIsEnded] = useState(false);
   const handlePress = () => {
+    Keyboard.dismiss();
     if (isEnded === true) {
       setResult(Math.floor(Math.random() * 100));
       setMin(0);
