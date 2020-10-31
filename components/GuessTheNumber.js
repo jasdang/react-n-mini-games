@@ -115,13 +115,14 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     alignItems: 'center',
-    justifyContent: 'flex-start',
+    justifyContent: 'space-around',
     margin: 50,
     backgroundColor: 'steelblue',
   },
   subContainer: {
+    height: 200,
+    justifyContent: 'space-around',
     alignItems: 'center',
-    justifyContent: 'flex-start',
     backgroundColor: 'steelblue',
   },
   gameHeader: {
