@@ -5,6 +5,7 @@ import {NavigationContainer} from '@react-navigation/native';
 import {createDrawerNavigator} from '@react-navigation/drawer';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import GuessTheNumber from './components/GuessTheNumber';
+import TicTacToe from './components/TicTacToe';
 
 const Drawer = createDrawerNavigator();
 const Tab = createBottomTabNavigator();
@@ -13,7 +14,8 @@ export default function App() {
   return (
     <NavigationContainer>
       <Drawer.Navigator>
-        <Drawer.Screen name='testComponent' component={GuessTheNumber} />
+        <Drawer.Screen name='Tic Tac Toe' component={TicTacToe} />
+        <Drawer.Screen name='Guess The Number' component={GuessTheNumber} />
       </Drawer.Navigator>
     </NavigationContainer>
   );
