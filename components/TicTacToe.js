@@ -17,23 +17,29 @@ export default function TicTacToe() {
       <Text style={styles.gameHeader} onPress={() => handleClick(1)}>
         Next Player is {xIsNext ? 'X' : 'O'}
       </Text>
-      <Board />
+      <Board
+        cells={cells}
+        xIsNext={xIsNext}
+        handleClick={(i) => handleClick(i)}
+      />
     </View>
   );
 }
 
-function Board() {
-  function renderCell() {
-    return <Cell />;
+function Board(props) {
+  function renderCell(id) {
+    return <Cell id={id} handleClick={props.handleClick} />;
   }
 
   function renderRow() {
     const rows = [];
+    let id = 0;
     for (let i = 0; i < 3; i++) {
       const row = [];
       for (let j = 0; j < 3; j++) {
-        const cell = renderCell();
+        const cell = renderCell(props.cells[id]);
         row.push(cell);
+        id++;
       }
       rows.push(<View style={styles.row}>{row}</View>);
     }
@@ -43,10 +49,12 @@ function Board() {
   return <View style={styles.board}>{renderRow()}</View>;
 }
 
-function Cell() {
+function Cell(props) {
   return (
-    <TouchableOpacity>
-      <View style={styles.cell}></View>
+    <TouchableOpacity onPress={() => props.handleClick(props.id)}>
+      <View style={styles.cell}>
+        <Text>{props.id}</Text>
+      </View>
     </TouchableOpacity>
   );
 }
