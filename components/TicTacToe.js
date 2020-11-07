@@ -27,8 +27,10 @@ export default function TicTacToe() {
 }
 
 function Board(props) {
-  function renderCell(id) {
-    return <Cell id={id} handleClick={props.handleClick} />;
+  function renderCell(value, id) {
+    return (
+      <Cell value={value} id={id} handleClick={props.handleClick} key={id} />
+    );
   }
 
   function renderRow() {
@@ -37,11 +39,15 @@ function Board(props) {
     for (let i = 0; i < 3; i++) {
       const row = [];
       for (let j = 0; j < 3; j++) {
-        const cell = renderCell(props.cells[id]);
+        const cell = renderCell(props.cells[id], id);
         row.push(cell);
         id++;
       }
-      rows.push(<View style={styles.row}>{row}</View>);
+      rows.push(
+        <View style={styles.row} key={i}>
+          {row}
+        </View>
+      );
     }
     return rows;
   }
@@ -53,7 +59,7 @@ function Cell(props) {
   return (
     <TouchableOpacity onPress={() => props.handleClick(props.id)}>
       <View style={styles.cell}>
-        <Text>{props.id}</Text>
+        <Text>{props.value}</Text>
       </View>
     </TouchableOpacity>
   );
