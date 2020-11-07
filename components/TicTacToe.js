@@ -5,21 +5,30 @@ export default function TicTacToe() {
   return (
     <View style={styles.container}>
       <Text style={styles.gameHeader}>Tic Tac Toe</Text>
-      <Row />
-      <Row />
-      <Row />
+      <Board />
     </View>
   );
 }
 
-function Row() {
-  return (
-    <View style={styles.row}>
-      <Cell />
-      <Cell />
-      <Cell />
-    </View>
-  );
+function Board() {
+  function renderCell() {
+    return <Cell />;
+  }
+
+  function renderRow() {
+    const rows = [];
+    for (let i = 0; i < 3; i++) {
+      const row = [];
+      for (let j = 0; j < 3; j++) {
+        const cell = renderCell();
+        row.push(cell);
+      }
+      rows.push(<View style={styles.row}>{row}</View>);
+    }
+    return rows;
+  }
+
+  return <View style={styles.board}>{renderRow()}</View>;
 }
 
 function Cell() {
@@ -42,6 +51,9 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
     fontSize: 30,
     backgroundColor: 'skyblue',
+  },
+  board: {
+    flexDirection: 'column',
   },
   row: {
     flexDirection: 'row',
