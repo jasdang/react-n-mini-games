@@ -5,6 +5,7 @@ export default function TicTacToe() {
   const [cells, setCells] = useState(Array(9).fill(null));
   const [xIsNext, setXIsNext] = useState(true);
   const handleClick = (i) => {
+    if (cells[i] !== null) return;
     let newCells = [...cells];
     newCells[i] = xIsNext ? 'X' : 'O';
     setCells(newCells);
