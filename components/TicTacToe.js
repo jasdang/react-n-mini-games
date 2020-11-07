@@ -50,8 +50,10 @@ const styles = StyleSheet.create({
     backgroundColor: 'white',
     borderStyle: 'solid',
     borderColor: 'black',
-    borderWidth: 5,
+    borderWidth: 4,
     height: 50,
     width: 50,
+    marginRight: -4,
+    marginTop: -4,
   },
 });
