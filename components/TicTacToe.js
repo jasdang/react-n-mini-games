@@ -59,7 +59,7 @@ function Cell(props) {
   return (
     <TouchableOpacity onPress={() => props.handleClick(props.id)}>
       <View style={styles.cell}>
-        <Text>{props.value}</Text>
+        <Text style={styles.cellContent}>{props.value}</Text>
       </View>
     </TouchableOpacity>
   );
@@ -94,5 +94,10 @@ const styles = StyleSheet.create({
     width: 50,
     marginRight: -4,
     marginTop: -4,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  cellContent: {
+    fontSize: 50,
   },
 });
