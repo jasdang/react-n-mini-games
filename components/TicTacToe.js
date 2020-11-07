@@ -1,10 +1,22 @@
-import React from 'react';
+import React, {useState} from 'react';
 import {StyleSheet, View, Text, TouchableOpacity} from 'react-native';
 
 export default function TicTacToe() {
+  const [cells, setCells] = useState(Array(9).fill(null));
+  const [xIsNext, setXIsNext] = useState(true);
+  const handleClick = (i) => {
+    let newCells = [...cells];
+    newCells[i] = xIsNext ? 'X' : 'O';
+    setCells(newCells);
+    setXIsNext(!xIsNext);
+  };
+
   return (
     <View style={styles.container}>
       <Text style={styles.gameHeader}>Tic Tac Toe</Text>
+      <Text style={styles.gameHeader} onPress={() => handleClick(1)}>
+        Next Player is {xIsNext ? 'X' : 'O'}
+      </Text>
       <Board />
     </View>
   );
@@ -54,6 +66,7 @@ const styles = StyleSheet.create({
   },
   board: {
     flexDirection: 'column',
+    padding: 30,
   },
   row: {
     flexDirection: 'row',
