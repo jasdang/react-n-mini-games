@@ -6,6 +6,7 @@ export default function TicTacToe() {
   const [xIsNext, setXIsNext] = useState(true);
   const handleClick = (i) => {
     if (cells[i] !== null) return;
+    if (calculateWinner(cells) !== null) return;
     let newCells = [...cells];
     newCells[i] = xIsNext ? 'X' : 'O';
     setCells(newCells);
@@ -24,6 +25,9 @@ export default function TicTacToe() {
         xIsNext={xIsNext}
         handleClick={(i) => handleClick(i)}
       />
+      <TouchableOpacity onPress={() => setCells(Array(9).fill(null))}>
+        <Text>Reset</Text>
+      </TouchableOpacity>
     </View>
   );
 }
