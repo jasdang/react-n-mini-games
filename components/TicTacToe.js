@@ -6,8 +6,7 @@ export default function TicTacToe() {
   const [xIsNext, setXIsNext] = useState(true);
   const [winner, setWinner] = useState(calculateWinner(cells));
   const handleClick = (i) => {
-    if (cells[i] !== null) return;
-    if (calculateWinner(cells) !== null) return;
+    if (cells[i] || winner) return;
     let newCells = [...cells];
     newCells[i] = xIsNext ? 'X' : 'O';
     setCells(newCells);
@@ -17,29 +16,23 @@ export default function TicTacToe() {
   const status = () => {
     if (winner) {
       return `Winner is ${winner}`;
+    } else if (cells.every((cell) => cell !== null)) {
+      return 'Draw!';
     } else {
-      if (cells.every((cell) => cell !== null)) {
-        return 'Draw!';
-      } else {
-        return `Next Player is ${xIsNext ? 'X' : 'O'}`;
-      }
-      return;
+      return `Next Player is ${xIsNext ? 'X' : 'O'}`;
     }
   };
-
+  const reset = () => {
+    setCells(Array(9).fill(null));
+    setWinner(null);
+    setXIsNext(true);
+  };
   return (
     <View style={styles.container}>
       <Text style={styles.gameHeader}>Tic Tac Toe</Text>
-      {/* <Text style={styles.gameHeader} onPress={handleClick}>
-        Next Player is {xIsNext ? 'X' : 'O'}
-      </Text> */}
       <Text style={styles.gameHeader}>{status()}</Text>
-      <Board
-        cells={cells}
-        xIsNext={xIsNext}
-        handleClick={(i) => handleClick(i)}
-      />
-      <TouchableOpacity onPress={() => setCells(Array(9).fill(null))}>
+      <Board cells={cells} xIsNext={xIsNext} handleClick={handleClick} />
+      <TouchableOpacity onPress={reset}>
         <Text>Reset</Text>
       </TouchableOpacity>
     </View>
