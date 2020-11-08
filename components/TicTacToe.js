@@ -4,6 +4,7 @@ import {StyleSheet, View, Text, TouchableOpacity} from 'react-native';
 export default function TicTacToe() {
   const [cells, setCells] = useState(Array(9).fill(null));
   const [xIsNext, setXIsNext] = useState(true);
+  const [winner, setWinner] = useState(calculateWinner(cells));
   const handleClick = (i) => {
     if (cells[i] !== null) return;
     if (calculateWinner(cells) !== null) return;
@@ -11,15 +12,28 @@ export default function TicTacToe() {
     newCells[i] = xIsNext ? 'X' : 'O';
     setCells(newCells);
     setXIsNext(!xIsNext);
+    setWinner(calculateWinner(newCells));
+  };
+  const status = () => {
+    if (winner) {
+      return `Winner is ${winner}`;
+    } else {
+      if (cells.every((cell) => cell !== null)) {
+        return 'Draw!';
+      } else {
+        return `Next Player is ${xIsNext ? 'X' : 'O'}`;
+      }
+      return;
+    }
   };
 
   return (
     <View style={styles.container}>
       <Text style={styles.gameHeader}>Tic Tac Toe</Text>
-      <Text style={styles.gameHeader} onPress={() => handleClick(1)}>
+      {/* <Text style={styles.gameHeader} onPress={handleClick}>
         Next Player is {xIsNext ? 'X' : 'O'}
-      </Text>
-      <Text style={styles.gameHeader}>Winner is {calculateWinner(cells)}</Text>
+      </Text> */}
+      <Text style={styles.gameHeader}>{status()}</Text>
       <Board
         cells={cells}
         xIsNext={xIsNext}
