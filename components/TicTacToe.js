@@ -125,12 +125,11 @@ const styles = StyleSheet.create({
     borderWidth: 4,
     height: 50,
     width: 50,
-    marginRight: -4,
-    marginTop: -4,
     justifyContent: 'center',
     alignItems: 'center',
   },
   cellContent: {
-    fontSize: 50,
+    fontSize: 35,
+    fontWeight: 'bold',
   },
 });
