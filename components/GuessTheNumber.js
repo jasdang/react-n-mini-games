@@ -6,6 +6,7 @@ import {
   TextInput,
   TouchableOpacity,
   Keyboard,
+  KeyboardAvoidingView,
 } from 'react-native';
 
 export default function GuessTheNumber() {
@@ -16,7 +17,8 @@ export default function GuessTheNumber() {
   const [isEnded, setIsEnded] = useState(false);
 
   return (
-    <View style={styles.container}>
+    // <View style={styles.container}>
+    <KeyboardAvoidingView style={styles.container} behavior='position'>
       <Text style={styles.gameHeader}>Game Header</Text>
       <View style={styles.square}>
         <Text style={styles.squareContent}>{result}</Text>
@@ -48,7 +50,7 @@ export default function GuessTheNumber() {
           isEnded={isEnded}
         />
       )}
-    </View>
+    </KeyboardAvoidingView>
   );
 }
 
